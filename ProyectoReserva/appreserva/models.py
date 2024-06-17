@@ -10,6 +10,9 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nombre, self.usuario, self.contraseña, self.carrera, self.email
+    def __str__(self):
+        user: User = self.user  # Sugerencia de tipo
+        return user.username
 
 class Cancha(models.Model):
     numero = models.IntegerField() # 1, 2, 3, 4, 5, 6.
