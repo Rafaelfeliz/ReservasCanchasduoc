@@ -3,13 +3,12 @@ from django.contrib.auth.models import User
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
-    usuario = models.CharField(max_length=50)
     contraseña = models.CharField(max_length=50)
     carrera = models.CharField(max_length=50)
     email = models.EmailField()
 
     def __str__(self):
-        return f"{self.nombre}, {self.usuario}, {self.contraseña}, {self.carrera}, {self.email}"
+        return f"{self.nombre}, {self.contraseña}, {self.carrera}, {self.email}"
 
 
 class Cancha(models.Model):
