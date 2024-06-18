@@ -11,7 +11,6 @@ class Cliente(models.Model):
     def __str__(self):
         return f"{self.nombre}, {self.usuario}, {self.contraseña}, {self.carrera}, {self.email}"
 
-
 class Cancha(models.Model):
     numero = models.IntegerField()  # 1, 2, 3, 4, 5, 6.
     tipo = models.CharField(max_length=50)  # pasto sintetico, pasto natural, cemento
@@ -20,17 +19,15 @@ class Cancha(models.Model):
     def __str__(self):
         return f"{self.numero}, {self.tipo}, {self.precio}"
 
-
 class DisponibilidadCancha(models.Model):
     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
-    dia_semana = models.DateField()  # 1=Lunes, 2=Martes, ..., 7=Domingo
+    dia_semana = models.IntegerField()  # 1=Lunes, 2=Martes, ..., 7=Domingo
     hora_inicio = models.TimeField()
     hora_fin = models.TimeField()
     reservado = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.cancha.numero} - {self.dia_semana} {self.hora_inicio}-{self.hora_fin}"
-
 
 class Pago(models.Model):
     reserva = models.OneToOneField('Reserva', on_delete=models.CASCADE, related_name='pago_detalle')
@@ -41,7 +38,6 @@ class Pago(models.Model):
 
     def __str__(self):
         return f"Pago de {self.reserva.cliente} - {self.monto}, {self.fecha_pago} {self.hora_pago} {self.metodo_pago}"
-
 
 class Reserva(models.Model):  # Resumen de la reserva
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
