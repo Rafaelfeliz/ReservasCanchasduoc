@@ -2,12 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Cliente(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    telefono = models.CharField(max_length=15, blank=True)
-    direccion = models.CharField(max_length=255, blank=True)
+    nombre = models.CharField(max_length=50)
+    usuario = models.CharField(max_length=50)
+    contraseña = models.CharField(max_length=50)
+    carrera = models.CharField(max_length=50)
+    email = models.EmailField()
 
     def __str__(self):
-        return self.user.username
+        return f"{self.nombre}, {self.usuario}, {self.contraseña}, {self.carrera}, {self.email}"
+
 
 class Cancha(models.Model):
     nombre = models.CharField(max_length=100)
