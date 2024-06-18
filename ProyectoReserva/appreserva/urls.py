@@ -5,9 +5,9 @@ from . import views
 router = DefaultRouter()
 router.register(r'clientes', views.ClienteViewSet)
 router.register(r'canchas', views.CanchaViewSet)
-router.register(r'disponibilidad', views.DisponibilidadCanchaViewSet)
-router.register(r'reservas', views.ReservaViewSet)
+router.register(r'disponibilidades', views.DisponibilidadCanchaViewSet)
 router.register(r'pagos', views.PagoViewSet)
+router.register(r'reservas', views.ReservaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
