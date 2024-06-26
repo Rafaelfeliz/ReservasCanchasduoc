@@ -2,47 +2,49 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    contraseña = models.CharField(max_length=50)
+    nombre = models.OneToOneField(User, on_delete=models.CASCADE)
+    apellido = models.CharField(max_length=50)
+    rut = models.CharField(max_length=50)
+    edad = models.IntegerField()
     carrera = models.CharField(max_length=50)
     email = models.EmailField()
-
-    def __str__(self):
-        return f"{self.nombre}, {self.contraseña}, {self.carrera}, {self.email}"
-
-
+    sede = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+    
 class Cancha(models.Model):
-    nombre = models.CharField(max_length=100)
-    ubicacion = models.CharField(max_length=255)
-    tipo = models.CharField(max_length=50)  # Ejemplo: Futbol, Basquetbol, etc.
+    fecha = models.DateField()
+    hora = models.TimeField()
+    numero_cancha = models.IntegerField()
 
     def __str__(self):
-        return self.nombre
+        return f"{self.fecha},{self.hora},{self.numero_cancha}"
+
 
 class DisponibilidadCancha(models.Model):
-    cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
+    numero_cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
     fecha = models.DateField()
-    hora_inicio = models.TimeField()
-    hora_fin = models.TimeField()
+    hora = models.TimeField()
 
     def __str__(self):
-        return f"{self.cancha.nombre} - {self.fecha} {self.hora_inicio}-{self.hora_fin}"
+        return f"{self.numero_cancha} - {self.fecha} {self.hora}"
+
 
 class Reserva(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
-    fecha_reserva = models.DateField()
-    hora_inicio = models.TimeField()
-    hora_fin = models.TimeField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    numero_cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    hora = models.TimeField()
 
     def __str__(self):
-        return f"{self.cliente.user.username} - {self.cancha.nombre} - {self.fecha_reserva} {self.hora_inicio}-{self.hora_fin}"
+        return f"{self.user} - {self.numero_cancha} - {self.fecha} {self.hora}"
+
 
 class Pago(models.Model):
     reserva = models.OneToOneField(Reserva, on_delete=models.CASCADE)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     fecha_pago = models.DateTimeField(auto_now_add=True)
-    metodo_pago = models.CharField(max_length=50)  # Ejemplo: Tarjeta, Efectivo, etc.
+    # Ejemplo: Tarjeta, Efectivo, etc.
+    metodo_pago = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"Pago de {self.reserva.cliente.user.username} - {self.monto}"
+        return f"Pago de {self.reserva} - {self.monto}"
