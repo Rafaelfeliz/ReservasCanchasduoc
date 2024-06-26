@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email']  
+        fields = fields = '_all_' 
 
 class ClienteSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
         model = Cliente
-        fields = ['id', 'user', 'telefono', 'direccion']
+        fields = '_all_'
 
 class CanchaSerializer(serializers.ModelSerializer):
     class Meta:
