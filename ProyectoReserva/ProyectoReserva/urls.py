@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('appreserva.urls')),
+    path('admin/', admin.site.urls),  # Ruta para la administración de Django
+    path('api/', include('appreserva.urls')),  # Incluye las URLs de appreserva bajo 'api/'
 ]
+

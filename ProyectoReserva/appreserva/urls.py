@@ -1,15 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import userViewSet, CanchaViewSet, DisponibilidadCanchaViewSet, ReservaViewSet, PagoViewSet, ClienteViewSet
-
+from .views import UserViewSet, CanchaViewSet, DisponibilidadCanchaViewSet, ReservaViewSet, PagoViewSet
 
 router = DefaultRouter()
-router.register('cliente', ClienteViewSet)
-router.register('user', userViewSet)
-router.register('cancha', CanchaViewSet)
-router.register('disponibilidadcancha', DisponibilidadCanchaViewSet)
-router.register('reserva', ReservaViewSet)
-router.register('pago', PagoViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'canchas', CanchaViewSet)
+router.register(r'disponibilidad-canchas', DisponibilidadCanchaViewSet)
+router.register(r'reservas', ReservaViewSet)
+router.register(r'pagos', PagoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
