@@ -1,16 +1,23 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Reserva, Cancha, DisponibilidadCancha, Pago
+from .models import Cliente, Cancha, DisponibilidadCancha, Reserva, Pago
 
+class ClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = '__all__'
+        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['username', 'email']  
 
-class ReservaSerializer(serializers.ModelSerializer):
+class ClienteSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
-        model = Reserva
-        fields = '__all__'
+        model = Cliente
+        fields = ['id', 'user', 'telefono', 'direccion']
 
 class CanchaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,6 +27,11 @@ class CanchaSerializer(serializers.ModelSerializer):
 class DisponibilidadCanchaSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisponibilidadCancha
+        fields = '__all__'
+
+class ReservaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reserva
         fields = '__all__'
 
 class PagoSerializer(serializers.ModelSerializer):
