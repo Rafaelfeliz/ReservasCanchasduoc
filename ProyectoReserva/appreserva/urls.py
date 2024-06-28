@@ -1,11 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import userViewSet, CanchaViewSet, DisponibilidadCanchaViewSet, ReservaViewSet, PagoViewSet, ClienteViewSet
-
+from .views import UserViewSet, CanchaViewSet, DisponibilidadCanchaViewSet, ReservaViewSet, PagoViewSet
 
 router = DefaultRouter()
-router.register('cliente', ClienteViewSet)
-router.register('user', userViewSet)
+router.register('user', UserViewSet)
 router.register('cancha', CanchaViewSet)
 router.register('disponibilidadcancha', DisponibilidadCanchaViewSet)
 router.register('reserva', ReservaViewSet)

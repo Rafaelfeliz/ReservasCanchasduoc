@@ -1,23 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Cliente, Cancha, DisponibilidadCancha, Reserva, Pago
-
-class ClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cliente
-        fields = '__all__'
+from .models import Cancha, DisponibilidadCancha, Reserva, Pago
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email']  
-
-class ClienteSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = Cliente
-        fields = ['id', 'user', 'telefono', 'direccion']
+        fields = fields = ['id', 'username', 'email', 'first_name', 'last_name']  
 
 class CanchaSerializer(serializers.ModelSerializer):
     class Meta:
